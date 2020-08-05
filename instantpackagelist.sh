@@ -1,18 +1,19 @@
 #!/bin/bash
 
 # generate a list of all available pacman packages
+echoerr() { cat <<<"$@" 1>&2; }
 
 if ! [ -e /var/lib/pacman/sync ]; then
 	if ! command -v pacman; then
-		echo "not on an arch system"
+		echoerr "not on an arch system"
 		sleep 3
 		exit 1
 	fi
-	echo "please update your database"
-	sudo pacman -Sy
+	echoerr "please update your database"
+	sudo pacman -Sy 1>&2
 fi
 
-echo "updating package list"
+echoerr "updating package list"
 pacman -Ssq '.*' | sort -u >packagelist2
 pacman -Qq | sort | sort -u >installist
 comm -23 packagelist2 installist >packagelist

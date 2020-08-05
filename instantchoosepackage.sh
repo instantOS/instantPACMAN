@@ -15,9 +15,9 @@ fi
 
 if [ -z "$1" ] || ! [ "$1" = '-i' ]; then
     [ "$(iconf packagedate)" = "$(date '+%D' | sed 's~/~~g')" ] || updatelist &
-    instantmenu -l 20 -w -1 -bw 4 -q 'search package' -p "${1:-packages}" <~/.cache/instantos/packagelist
+    instantmenu -c -l 20 -w -1 -bw 4 -q 'search package' -p "${1:-packages}" <~/.cache/instantos/packagelist
 else
     shift 1
-    pacman -Ss instantmenu -l 20 -w -1 -bw 4 -q 'search package' -p "${1:-packages}"
+    pacman -Ss instantmenu -c -l 20 -w -1 -bw 4 -q 'search package' -p "${1:-packages}"
 
 fi
