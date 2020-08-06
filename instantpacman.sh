@@ -15,7 +15,7 @@ CHOICE="$(choicemenu)"
 [ -n "$CHOICE" ] || exit
 
 case "$CHOICE" in
-*Iinstall)
+*Install)
     PACKAGE="$(instantchoosepackage)"
     [ -n "$PACKAGE" ] || exit
     echo "installing $PACKAGE"
