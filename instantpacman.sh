@@ -4,6 +4,7 @@
 
 choicemenu() {
     echo ':g Install
+:b 蓮Browse
 :r Remove
 :b Enter exact package name
 :b Update
@@ -24,7 +25,11 @@ case "$CHOICE" in
 *Remove)
     PACKAGE="$(instantchoosepackage -i)"
     [ -n "$PACKAGE" ] || exit
-    st -e bash -c "yay -R $PACKAGE; sleep 4"
+    st -e bash -c "yay -R $PACKAGE && notify-send finished\ uninstalling\ $PACKAGE; sleep 4"
+    ;;
+*Browse)
+    pamac-manager &
+    exit
     ;;
 *name)
     PACKAGE="$(imenu -i 'enter package name')"
