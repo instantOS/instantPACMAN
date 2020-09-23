@@ -20,12 +20,12 @@ case "$CHOICE" in
     PACKAGE="$(instantchoosepackage)"
     [ -n "$PACKAGE" ] || exit
     echo "installing $PACKAGE"
-    st -e sh -c "yay -S $PACKAGE"
+    st -e sh -c "(yay -S $PACKAGE || bash) && notify-send 'finished installing '$PACKAGE"
     ;;
 *Remove)
     PACKAGE="$(instantchoosepackage -i)"
     [ -n "$PACKAGE" ] || exit
-    st -e bash -c "yay -R $PACKAGE && notify-send finished\ uninstalling\ $PACKAGE; sleep 4"
+    st -e bash -c "(yay -R $PACKAGE || bash) && notify-send finished\ uninstalling\ $PACKAGE; sleep 4"
     ;;
 *Browse)
     pamac-manager &
@@ -34,7 +34,7 @@ case "$CHOICE" in
 *name)
     PACKAGE="$(imenu -i 'enter package name')"
     [ -n "$PACKAGE" ] || exit
-    st -e sh -c "yay -S $PACKAGE"
+    st -e sh -c "(yay -S $PACKAGE || bash) && notify-send 'finished installing '$PACKAGE"
     ;;
 *Update)
     st -e sh -c yay
