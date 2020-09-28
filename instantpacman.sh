@@ -6,7 +6,7 @@ choicemenu() {
     echo ':g Install
 :b 蓮Browse
 :r Remove
-:b Enter exact package name
+:b Install AUR package
 :b Update
 :r Close' | instantmenu -bw 4 -w -1 -h -1 -q 'instantPACMAN' -c -l 30
 }
@@ -31,7 +31,7 @@ case "$CHOICE" in
     pamac-manager &
     exit
     ;;
-*name)
+*package)
     PACKAGE="$(imenu -i 'enter package name')"
     [ -n "$PACKAGE" ] || exit
     st -e sh -c "(yay -S $PACKAGE || bash) && notify-send 'finished installing '$PACKAGE"
