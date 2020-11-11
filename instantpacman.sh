@@ -8,7 +8,7 @@ choicemenu() {
 :r Remove
 :b Install AUR package
 :b Update
-:r Close' | instantmenu -bw 4 -w -1 -h -1 -q 'instantPACMAN' -c -l 30
+:r Close' | instantmenu -bw 4 -w -1 -h -1 -i -q 'instantPACMAN' -c -l 30
 }
 
 CHOICE="$(choicemenu)"
