@@ -21,5 +21,5 @@ sed 's/^/:g/g' installist >>packagelist
 sed -i 's/$/ /' packagelist
 rm installist packagelist2
 
-mkdir -p ~/.cache/instantosy
+mkdir -p ~/.cache/instantos
 cp packagelist ~/.cache/instantos/packagelist
