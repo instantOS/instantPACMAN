@@ -3,6 +3,7 @@
 # instantmenu that lets you choose a package
 
 updatelist() {
+    notify-send 'updating package list, please wait'
     iconf packagedate "$(date '+%D' | sed 's~/~~g')"
     instantpackagelist
 }
