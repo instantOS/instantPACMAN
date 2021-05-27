@@ -23,4 +23,5 @@ else
 fi
 
 [ -n "$PACKAGE" ] || exit
+
 sed 's/^:.//g' <<<"$PACKAGE" | grep -o '[^ ]*'
