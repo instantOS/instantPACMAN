@@ -14,13 +14,16 @@ if ! [ -e ~/.cache/instantos/packagelist ]; then
     sleep 2
 fi
 
-if [ -z "$1" ] || ! [ "$1" = '-i' ]; then
+if [ $1 = '-i' ]; then
+    shift
     [ "$(iconf packagedate)" = "$(date '+%D' | sed 's~/~~g')" ] || updatelist &
     PACKAGE="$(instantmenu -c -l 20 -w -1 -bw 4 -q 'search package' -p "${1:-packages}" <~/.cache/instantos/packagelist)"
+else if [ $1 = '-a' ]; then
+    shift
+    PACKAGE="$(instantmenu -c -l 20 -w -1 -bw 4 -q 'search package' -p "${1:-packages}" <~/.cache/instantos/aurlist)"
 else
-    shift 1
     PACKAGE="$(pacman -Ssq | instantmenu -c -l 20 -w -1 -bw 4 -q 'search package' -p "${1:-packages}")"
-fi
+fi;fi
 
 [ -n "$PACKAGE" ] || exit
 

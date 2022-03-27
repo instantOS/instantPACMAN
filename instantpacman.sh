@@ -33,7 +33,7 @@ case "$CHOICE" in
     exit
     ;;
 *package)
-    PACKAGE="$(imenu -i 'enter package name')"
+    PACKAGE="$(instantchoosepackage -a)"
     [ -n "$PACKAGE" ] || exit
     st -e sh -c "(yay -S $PACKAGE || bash) && notify-send 'finished installing '$PACKAGE"
     ;;
