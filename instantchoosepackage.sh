@@ -8,7 +8,7 @@ updatelist() {
     instantpackagelist
 }
 
-if ! [ -e ~/.cache/instantos/packagelist ]; then
+if ! [ -e ~/.cache/instantos/packagelist ] || ! [ -e ~/.cache/instantos/aurlist ]; then
     notify-send updating package list
     updatelist
     sleep 2
