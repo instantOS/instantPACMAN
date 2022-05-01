@@ -21,12 +21,12 @@ case "$CHOICE" in
     PACKAGE="$(instantchoosepackage)"
     [ -n "$PACKAGE" ] || exit
     echo "installing $PACKAGE"
-    st -e sh -c "(yay -S $PACKAGE || bash) && notify-send 'finished installing '$PACKAGE"
+    st -c instantfloat -g '64x32' -e sh -c "(yay -S $PACKAGE || bash) && notify-send 'finished installing '$PACKAGE"
     ;;
 *Remove)
     PACKAGE="$(instantchoosepackage -i)"
     [ -n "$PACKAGE" ] || exit
-    st -e bash -c "(yay -R $PACKAGE || bash) && notify-send finished\ uninstalling\ $PACKAGE; sleep 4"
+    st -c instantfloat -g '64x32' -e bash -c "(yay -R $PACKAGE || bash) && notify-send finished\ uninstalling\ $PACKAGE; sleep 4"
     ;;
 *Browse)
     pamac-manager &
@@ -35,10 +35,10 @@ case "$CHOICE" in
 *package)
     PACKAGE="$(imenu -i 'enter package name')"
     [ -n "$PACKAGE" ] || exit
-    st -e sh -c "(yay -S $PACKAGE || bash) && notify-send 'finished installing '$PACKAGE"
+    st -c instantfloat -g '64x32' -e sh -c "(yay -S $PACKAGE || bash) && notify-send 'finished installing '$PACKAGE"
     ;;
 *Update)
-    st -e sh -c yay
+    st -c instantfloat -g '64x32' -e sh -c yay
     ;;
 *Options)
     CHOICE="$(echo ':g Chaotic-AUR
