@@ -19,7 +19,10 @@ if [ -z "$1" ] || ! [ "$1" = '-i' ]; then
     PACKAGE="$(instantmenu -c -l 20 -w -1 -bw 4 -q 'search package' -p "${1:-packages}" <~/.cache/instantos/packagelist)"
 else
     shift 1
-    PACKAGE="$(pacman -Ssq | instantmenu -c -l 20 -w -1 -bw 4 -q 'search package' -p "${1:-packages}")"
+    PACKAGE="$(
+        pacman -Q | sed 's/[^ ]*$//g' |
+            instantmenu -c -l 20 -w -1 -bw 4 -q 'search package' -p "${1:-packages}"
+    )"
 fi
 
 [ -n "$PACKAGE" ] || exit

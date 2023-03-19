@@ -7,6 +7,7 @@ choicemenu() {
 :b 蓮Browse
 :r Remove
 :b Install AUR package
+:b Install flatpak package
 :b Update
 :b  (unfinished) Options
 :r Close' | instantmenu -bw 4 -w -1 -h -1 -i -q 'instantPACMAN   |   ⌘ + Ctrl + I' -c -l 30
@@ -16,29 +17,31 @@ CHOICE="$(choicemenu)"
 
 [ -n "$CHOICE" ] || exit
 
+source /usr/share/instantpacman/utils/utils.sh
+
 case "$CHOICE" in
 *Install)
-    PACKAGE="$(instantchoosepackage)"
+    PACKAGE="$(runutil choosepackage)"
     [ -n "$PACKAGE" ] || exit
-    echo "installing $PACKAGE"
-    st -e sh -c "(yay -S $PACKAGE || bash) && notify-send 'finished installing '$PACKAGE"
+    strun "yay -S $PACKAGE" "finished installing $PACKAGE"
     ;;
 *Remove)
-    PACKAGE="$(instantchoosepackage -i)"
+    PACKAGE="$(runutil choosepackage -i)"
     [ -n "$PACKAGE" ] || exit
-    st -e bash -c "(yay -R $PACKAGE || bash) && notify-send finished\ uninstalling\ $PACKAGE; sleep 4"
+    strun "yay -R $PACKAGE" "finished uninstalling $PACKAGE"
     ;;
 *Browse)
     pamac-manager &
     exit
     ;;
-*package)
-    PACKAGE="$(imenu -i 'enter package name')"
-    [ -n "$PACKAGE" ] || exit
-    st -e sh -c "(yay -S $PACKAGE || bash) && notify-send 'finished installing '$PACKAGE"
+*"AUR package")
+    runprovider aur "finished AUR"
+    ;;
+*"flatpak package")
+    runprovider flatpak "finished flatpak"
     ;;
 *Update)
-    st -e sh -c yay
+    strun yay "finished updating"
     ;;
 *Options)
     CHOICE="$(echo ':g Chaotic-AUR
@@ -94,4 +97,4 @@ Enable now?' | imenu -C; then
     ;;
 esac
 
-instantpackagelist &
+runutil packagelist &
