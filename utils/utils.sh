@@ -24,7 +24,7 @@ runutil() {
 export PACPATH="/usr/share/instantpacman"
 
 strun() {
-    st -e sh -c "($1 || bash) && notify-send '$2'; sleep 1"
+    st -c instantfloat -e sh -c "($1 || bash) && notify-send '$2'; sleep 1"
 }
 
 runprovider() {
