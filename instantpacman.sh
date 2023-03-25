@@ -31,6 +31,10 @@ case "$CHOICE" in
     strun "yay -R $PACKAGE" "finished uninstalling $PACKAGE"
     ;;
 *Browse)
+    command -v pamac-manager &>/dev/null || instantinstall pamac-nosnap || {
+        notify-send "pamac-nosnap is required for this feature"
+        exit 1
+    }
     pamac-manager &
     exit
     ;;
