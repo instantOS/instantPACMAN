@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ -n "$PACMANUTILS_SOURCED" ]; then
+    return
+fi
+PACMANUTILS_SOURCED=true
+
 # continually rerun command $1 to get new results with fzf
 fzfsearch() {
     RG_PREFIX="$1 "

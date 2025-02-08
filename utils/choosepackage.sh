@@ -1,11 +1,11 @@
 #!/bin/bash
 
 # instantmenu that lets you choose a package
+source /usr/share/instantpacman/utils/utils.sh
 
 updatelist() {
     notify-send 'updating package list, please wait'
-    iconf packagedate "$(date '+%D' | sed 's~/~~g')"
-    instantpackagelist
+    runutil packagelist
 }
 
 if ! [ -e ~/.cache/instantos/packagelist ]; then
@@ -14,14 +14,20 @@ if ! [ -e ~/.cache/instantos/packagelist ]; then
     sleep 2
 fi
 
+PACKAGELIST="$(cat ~/.cache/instantos/packagelist)"
+
 if [ -z "$1" ] || ! [ "$1" = '-i' ]; then
-    [ "$(iconf packagedate)" = "$(date '+%D' | sed 's~/~~g')" ] || updatelist &
-    PACKAGE="$(instantmenu -c -l 20 -w -1 -bw 4 -q 'search package' -p "${1:-packages}" <~/.cache/instantos/packagelist)"
+    if iconf w packagedate; then
+        updatelist &
+    fi
+    PACKAGE="$(instantmenu -c -l 20 -w -1 -bw 4 \
+        -q 'search package' -p "${1:-packages}" <<<"$PACKAGELIST")"
 else
     shift 1
     PACKAGE="$(
         pacman -Q | sed 's/[^ ]*$//g' |
-            instantmenu -c -l 20 -w -1 -bw 4 -q 'search package' -p "${1:-packages}"
+            instantmenu -c -l 20 -w -1 -bw 4 \
+                -q 'search package' -p "${1:-packages}"
     )"
 fi
 

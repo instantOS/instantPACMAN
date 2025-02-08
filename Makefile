@@ -13,7 +13,7 @@ install: instantpacman.sh
 	install -Dm 755 utils/utils.sh $(DESTDIR)$(PREFIX)/share/instantpacman/utils/utils.sh
 
 	install -Dm 755 utils/searchaur.sh $(DESTDIR)$(PREFIX)/share/instantpacman/utils/searchaur.sh
-	install -Dm 755 utils/packagelist.sh $(DESTDIR)$(PREFIX)/share/instantpacman/utils/instantpackagelist.sh
+	install -Dm 755 utils/packagelist.sh $(DESTDIR)$(PREFIX)/share/instantpacman/utils/packagelist.sh
 	install -Dm 755 utils/choosepackage.sh $(DESTDIR)$(PREFIX)/share/instantpacman/utils/choosepackage.sh
 
 	install -Dm 755 providers/aur.sh $(DESTDIR)$(PREFIX)/share/instantpacman/providers/aur.sh
